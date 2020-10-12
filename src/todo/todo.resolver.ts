@@ -6,8 +6,12 @@ export class TodoResolver {
   constructor(private readonly todoService: TodoService) {}
 
   @Query('tasks')
-  async getAllTasks() {
-    const tasks = await this.todoService.getAllTasks();
+  async getAllTasks(@Args('id') userId: string, @Args('page') pageNo: number, @Args('max') perPage: number) {
+    let tasks = await this.todoService.getAllTasks(userId);
+    if(pageNo && perPage) {
+      tasks = tasks.slice((pageNo-1) * perPage, pageNo * perPage)
+    }
+    console.log(tasks);
     return tasks;
   }
 
@@ -21,8 +25,9 @@ export class TodoResolver {
   async createTask(
     @Args('title') taskTitle: string,
     @Args('description') taskDesc: string,
+    @Args('user') userId: string,
   ) {
-    const task = await this.todoService.createTask(taskTitle, taskDesc);
+    const task = await this.todoService.createTask(taskTitle, taskDesc, userId);
     return task;
   }
 

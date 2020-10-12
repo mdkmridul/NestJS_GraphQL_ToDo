@@ -11,6 +11,7 @@ export const TodoSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  user: String,
 });
 
 export interface Todo {
@@ -19,4 +20,5 @@ export interface Todo {
   description: string;
   completed: boolean;
   date: Date;
-}
+  user: string
+};

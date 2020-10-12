@@ -8,14 +8,14 @@ import { Todo } from './schema/todo.model';
 export class TodoService {
   constructor(@InjectModel('Todo') private readonly todoModel: Model<Todo>) {}
 
-  async createTask(title: string, desc: string) {
-    const newTask = new this.todoModel({ title, description: desc });
+  async createTask(title: string, desc: string, user: string) {
+    const newTask = new this.todoModel({ title, description: desc, user });
     const result = await newTask.save();
     return result;
   }
 
-  async getAllTasks() {
-    const tasks = await this.todoModel.find({ completed: false });
+  async getAllTasks(userId: string) {
+    const tasks = await this.todoModel.find({user: userId}).exec();
     return tasks;
   }
 

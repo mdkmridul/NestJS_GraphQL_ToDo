@@ -1,17 +1,26 @@
+type User {
+  id: String!
+  name: String!
+  email: String!
+  age: Int!
+}
+
 type Todo {
   id: String!
   title: String!
   description: String!
   completed: Boolean!
+  user: String!
+  person: [User]
 }
 
 type Query {
-  tasks: [Todo]!
+  tasks(id: ID!, page: Int, max: Int): [Todo]!
   task(id: ID!): Todo!
 }
 
 type Mutation {
-  createTask(title: String!, description: String!): Todo!
+  createTask(title: String!, description: String!, user: String!): Todo!
   updateTask(
     id: String!
     title: String
