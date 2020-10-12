@@ -19,6 +19,8 @@ import { ConfigModule } from '@nestjs/config';
       resolverValidationOptions: {
         requireResolversForResolveType: false,
       },
+      playground:true,
+      
     }),
     ConfigModule.forRoot(),
   ],
